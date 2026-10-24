@@ -1,0 +1,390 @@
+.site-header {
+  --nb-primary: #2563EB;
+  --nb-primary-dark: #1D4ED8;
+  --nb-secondary: #F1F5FF;
+  --nb-text: #334155;
+  padding: 12px 16px;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+.site-header * { box-sizing: border-box; }
+.site-header [hidden] { display: none !important; }
+.site-header a { text-decoration: none; }
+
+.site-header .navbar {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, .08);
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.site-header .brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 1.05rem; color: var(--nb-primary);
+}
+.site-header .brand img { height: 36px; width: auto; object-fit: contain; }
+
+.site-header .navbar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; }
+.site-header .navbar li { margin: 0; padding: 0; }
+.site-header .navbar li a {
+  display: block; padding: 8px 16px; border-radius: 8px;
+  color: var(--nb-text); font-size: .92rem; font-weight: 500;
+  transition: background .2s ease, color .2s ease;
+}
+.site-header .navbar li a:hover { background: rgba(37, 99, 235, .1); color: var(--nb-primary); }
+.site-header .navbar li a[aria-current="page"] { background: var(--nb-primary); color: #ffffff; font-weight: 600; }
+
+.site-header .nav-aksi { justify-self: end; display: flex; gap: 10px; }
+.site-header .nav-tamu { display: flex; gap: 10px; }
+.site-header .nav-masuk,
+.site-header .nav-daftar {
+  padding: 9px 20px; border-radius: 10px; border: 1.5px solid var(--nb-primary);
+  font-size: .92rem; font-weight: 600; transition: background .2s ease;
+}
+.site-header .nav-masuk { background: var(--nb-primary); color: #ffffff; }
+.site-header .nav-masuk:hover { background: var(--nb-primary-dark); border-color: var(--nb-primary-dark); }
+.site-header .nav-daftar { background: #ffffff; color: var(--nb-primary); }
+.site-header .nav-daftar:hover { background: rgba(37, 99, 235, .08); }
+
+.site-header .nav-user {
+  display: flex; align-items: center; gap: 10px; padding: 5px 14px 5px 5px;
+  border-radius: 999px; background: var(--nb-secondary); color: var(--nb-primary);
+  font-size: .92rem; font-weight: 600; transition: background .2s ease;
+}
+.site-header .nav-user:hover { background: rgba(37, 99, 235, .15); }
+.site-header .nav-user img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+
+@media (max-width: 760px) {
+  .site-header .navbar { grid-template-columns: 1fr auto; }
+  .site-header .navbar nav { grid-column: 1 / -1; order: 3; overflow-x: auto; }
+  .site-header .navbar ul { justify-content: center; }
+}/* ---------- Reset terhadap body > header dari style.css dan CSS halaman ---------- */
+body > header.site-header {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 12px 16px !important;
+  display: block !important;
+  z-index: 50;
+}
+
+/* ---------- Lebar penuh navbar ---------- */
+body > header.site-header {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+}
+
+/* ── Hamburger button (disuntikkan oleh navbar.js) ── */
+.site-header .nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  color: #334155;
+  transition: background 0.2s;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+}
+
+.site-header .nav-hamburger:hover {
+  background: rgba(37,99,235,0.08);
+}
+
+@media (max-width: 767px) {
+  .site-header .navbar {
+    grid-template-columns: 1fr auto;
+    flex-wrap: wrap;
+  }
+
+  .site-header .nav-hamburger {
+    display: flex;
+  }
+
+  .site-header .nav-aksi {
+    display: none;
+  }
+
+  .site-header nav[aria-label="Menu Situs"] {
+    display: none;
+    grid-column: 1 / -1;
+    order: 4;
+    width: 100%;
+  }
+
+  .site-header nav[aria-label="Menu Situs"].open {
+    display: block;
+  }
+
+  .site-header nav[aria-label="Menu Situs"] ul {
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 0;
+  }
+
+  .site-header nav[aria-label="Menu Situs"].open + .nav-aksi {
+    display: flex;
+    grid-column: 1 / -1;
+    order: 5;
+    padding: 8px 0;
+    justify-content: center;
+  }
+}
+/* ---------- Navbar kaca: menempel di atas, blur saat halaman digulir ---------- */
+body > header.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.site-header .navbar {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 10px 24px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid transparent !important;
+  transition: background .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.site-header.sudah-gulir .navbar {
+  background: rgba(255, 255, 255, .62) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border-bottom-color: rgba(255, 255, 255, .5) !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, .08) !important;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.sudah-gulir .navbar { background: rgba(255, 255, 255, .92) !important; }
+}
+@media (max-width: 760px) {
+  .site-header .navbar { padding: 8px 14px !important; }
+}
+/* ---------- Penyesuaian: logo, grid sejajar konten, tombol lebih kecil ---------- */
+
+/* Isi navbar dibatasi selebar konten (1200px), latar blur tetap penuh */
+body > header.site-header .navbar {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  padding-left: max(24px, calc((100% - 1200px) / 2 + 24px)) !important;
+  padding-right: max(24px, calc((100% - 1200px) / 2 + 24px)) !important;
+  grid-template-columns: 1fr auto 1fr !important;
+}
+
+/* Logo dan nama lebih besar */
+.site-header .brand { gap: 12px !important; font-size: 1.3rem !important; }
+.site-header .brand img { height: 48px !important; width: auto !important; }
+
+/* Menu tetap di tengah kolom */
+.site-header .navbar nav { justify-self: center !important; }
+
+/* Tombol Masuk dan Daftar lebih kecil */
+.site-header .nav-tamu { gap: 8px !important; }
+.site-header .nav-masuk,
+.site-header .nav-daftar {
+  padding: 6px 16px !important;
+  font-size: .85rem !important;
+  border-radius: 8px !important;
+  line-height: 1.4 !important;
+}
+
+/* Foto dan nama pengguna (setelah login) ikut mengecil sedikit */
+.site-header .nav-user { font-size: .85rem !important; padding: 4px 12px 4px 4px !important; }
+.site-header .nav-user img { width: 28px !important; height: 28px !important; }
+
+@media (max-width: 760px) {
+  body > header.site-header .navbar {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .site-header .brand { font-size: 1.1rem !important; }
+  .site-header .brand img { height: 38px !important; }
+}
+/* ---------- Blur halus: intensitas mengikuti jarak gulir ---------- */
+@property --nb-g {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+.site-header {
+  --nb-g: 0;
+  transition: --nb-g .2s ease-out;
+}
+body > header.site-header .navbar.navbar {
+  background: rgba(255, 255, 255, calc(var(--nb-g) * 0.62)) !important;
+  -webkit-backdrop-filter: blur(calc(var(--nb-g) * 14px)) saturate(calc(1 + var(--nb-g) * 0.6)) !important;
+  backdrop-filter: blur(calc(var(--nb-g) * 14px)) saturate(calc(1 + var(--nb-g) * 0.6)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, calc(var(--nb-g) * 0.5)) !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, calc(var(--nb-g) * 0.08)) !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transition: none; }
+}
+/* ---------- Penanda menu diperkecil, samakan dengan tombol Masuk/Daftar ---------- */
+.site-header .navbar nav a,
+.site-header .navbar nav .nav-link,
+.site-header .navbar nav li > a {
+  padding: 6px 16px !important;
+  font-size: .85rem !important;
+  line-height: 1.4 !important;
+  border-radius: 8px !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+.site-header .navbar nav ul,
+.site-header .navbar nav {
+  gap: 4px !important;
+}
+/* ---------- "Ku" pada logo berwarna hijau ---------- */
+.site-header .brand .brand-teks { display: inline; }
+.site-header .brand .brand-ku { color: #16A34A !important; }
+
+/* ================================================================
+   BOTTOM NAVIGATION BAR — mobile only (≤ 767px)
+   ================================================================ */
+
+#bottom-nav {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 767px) {
+  /* Sembunyikan navbar atas di mobile */
+  body > header.site-header .navbar nav[aria-label="Menu Situs"],
+  body > header.site-header .navbar .nav-aksi,
+  body > header.site-header .navbar .nav-hamburger {
+    display: none !important;
+  }
+
+  /* Navbar atas hanya tampilkan brand logo */
+  body > header.site-header .navbar {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    padding: 8px 16px !important;
+  }
+
+  /* Bottom nav tampil */
+  #bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 20px rgba(15, 23, 42, .08);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    text-decoration: none;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    padding: 6px 4px;
+    transition: color .15s, transform .15s;
+    position: relative;
+  }
+
+  .bn-item:active { transform: scale(.93); }
+
+  .bn-item.bn-aktif {
+    color: #2563eb;
+  }
+
+  .bn-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bn-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .bn-aktif .bn-icon svg {
+    stroke: #2563eb;
+    stroke-width: 2.5;
+  }
+
+  /* Tombol + (Buat Laporan) — lingkaran hitam */
+  .bn-plus {
+    color: #ffffff;
+  }
+
+  .bn-plus .bn-icon {
+    width: 42px;
+    height: 42px;
+    background: #0f172a;
+    border-radius: 50%;
+    margin-top: -14px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, .35);
+    border: 3px solid #ffffff;
+    transition: background .15s, transform .15s;
+  }
+
+  .bn-plus:active .bn-icon { transform: scale(.92); }
+
+  .bn-plus .bn-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff;
+  }
+
+  .bn-plus .bn-label {
+    color: #64748b;
+    margin-top: 4px;
+  }
+
+  /* Foto profil di bottom nav */
+  .bn-foto-profil {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #e2e8f0;
+  }
+
+  .bn-aktif .bn-foto-profil {
+    border-color: #2563eb;
+  }
+
+  /* Pastikan konten tidak tertutup bottom nav */
+  body {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+  }
+}
