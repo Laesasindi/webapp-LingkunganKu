@@ -171,6 +171,11 @@
       box-sizing: border-box;
     }
 
+    .pw-wrap input[type="password"]::-ms-reveal,
+    .pw-wrap input[type="password"]::-ms-clear {
+      display: none;
+    }
+
     /* Override style.css global button[type="button"] untuk tombol mata */
     .pw-toggle {
       position: absolute !important;
@@ -199,7 +204,7 @@
 
     .pw-toggle:hover { color: #475569 !important; background: transparent !important; }
     .pw-toggle:active { transform: translateY(-50%) scale(1) !important; }
-    .pw-toggle svg { width: 18px !important; height: 18px !important; display: block !important; pointer-events: none !important; }
+    .pw-toggle svg { width: 18px !important; height: 18px !important; pointer-events: none !important; }
 
     /* ── Indikator Kekuatan Password ── */
     .password-strength {

@@ -7,6 +7,32 @@ use Illuminate\Http\Request;
 
 class FrontendLaporanController extends Controller
 {
+    public function show(Request $request)
+    {
+        $id = $request->query('id');
+
+        if (!is_string($id) || !ctype_digit($id)) {
+            return view('detail-laporan');
+        }
+
+        $laporan = Laporan::with('user')->findOrFail((int) $id);
+
+        return view('detail-laporan', compact('laporan'));
+    }
+
+    public function showHandling(Request $request)
+    {
+        $id = $request->query('id');
+
+        if (!is_string($id) || !ctype_digit($id)) {
+            return view('detail-penanganan');
+        }
+
+        $laporan = Laporan::with(['user', 'riwayatPenanganan'])->findOrFail((int) $id);
+
+        return view('detail-penanganan', compact('laporan'));
+    }
+
     public function index(Request $request)
     {
         $query = Laporan::latest();

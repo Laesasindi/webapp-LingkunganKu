@@ -207,22 +207,15 @@
     ol[aria-label="Tahapan proses penanganan"] {
       list-style: none;
       position: relative;
-      padding-left: 2.5rem;
+      padding-left: 0;
       margin: 0;
     }
 
-    ol[aria-label="Tahapan proses penanganan"]::before {
-      content: '';
-      position: absolute;
-      left: 13px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--color-selesai), var(--color-primary-light));
-      border-radius: 2px;
-    }
-
     ol[aria-label="Tahapan proses penanganan"] li {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: center;
+      column-gap: 12px;
       position: relative;
       margin-bottom: var(--space-5);
     }
@@ -230,10 +223,25 @@
     ol[aria-label="Tahapan proses penanganan"] li:last-child { margin-bottom: 0; }
 
     ol[aria-label="Tahapan proses penanganan"] li::before {
-      content: '✓';
+      content: none;
+      display: none;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"]::before {
+      content: '';
       position: absolute;
-      left: -2.5rem;
-      top: 0;
+      left: 13px;
+      top: var(--timeline-top, 14px);
+      height: var(--timeline-height, 0px);
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-selesai), var(--color-primary-light));
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] .timeline-indicator {
+      grid-column: 1;
+      grid-row: 1;
       width: 28px;
       height: 28px;
       background-color: var(--color-selesai);
@@ -246,9 +254,39 @@
       font-weight: 700;
       border: 2px solid var(--color-white);
       box-shadow: 0 0 0 2px var(--color-selesai);
+      z-index: 1;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] .timeline-indicator::before {
+      content: '✓';
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--pending .timeline-indicator {
+      background-color: #cbd5e1;
+      box-shadow: 0 0 0 2px #cbd5e1;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--pending .timeline-indicator::before,
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--current .timeline-indicator::before {
+      content: '';
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--pending h3 {
+      color: #64748b;
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--current .timeline-indicator {
+      background-color: #ffffff;
+      box-shadow: 0 0 0 2px var(--color-primary);
+    }
+
+    ol[aria-label="Tahapan proses penanganan"] li.timeline-step--current h3 {
+      color: var(--color-primary);
     }
 
     ol[aria-label="Tahapan proses penanganan"] article {
+      grid-column: 2;
+      grid-row: 1;
       background: var(--color-bg);
       border-radius: var(--radius-md);
       padding: var(--space-3) var(--space-4);
@@ -317,8 +355,15 @@
       <section aria-labelledby="foto-penanganan-heading">
         <h2 id="foto-penanganan-heading">Foto Laporan</h2>
         <figure>
-          <img id="foto-penanganan" src="" alt="">
-          <figcaption id="foto-caption"></figcaption>
+          @if (isset($laporan) && $laporan->foto)
+            <img id="foto-penanganan" src="{{ Storage::url($laporan->foto) }}" alt="Foto laporan {{ $laporan->judul }}">
+            <figcaption id="foto-caption">Foto dokumentasi laporan.</figcaption>
+          @elseif (isset($laporan))
+            <p>Foto tidak disertakan pada laporan ini.</p>
+          @else
+            <img id="foto-penanganan" src="" alt="">
+            <figcaption id="foto-caption"></figcaption>
+          @endif
         </figure>
       </section>
 
@@ -330,11 +375,19 @@
           <tbody>
             <tr>
               <th scope="row">Deskripsi</th>
-              <td id="laporan-deskripsi"></td>
+              <td id="laporan-deskripsi">@isset($laporan){{ $laporan->deskripsi }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">Titik Lokasi</th>
-              <td id="laporan-gps"></td>
+              <td id="laporan-gps">
+                @isset($laporan)
+                  @if (preg_match('/\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)/', $laporan->lokasi, $matches))
+                    {{ $matches[1] }}, {{ $matches[2] }}
+                  @else
+                    {{ $laporan->lokasi }}
+                  @endif
+                @endisset
+              </td>
             </tr>
           </tbody>
         </table>
@@ -342,7 +395,7 @@
 
       <!-- Tombol Kembali -->
       <section aria-label="Navigasi Kembali">
-        <a href="/detail-laporan" id="link-kembali-bawah">
+        <a href="{{ isset($laporan) ? route('detail-laporan', ['id' => $laporan->id]) : '/detail-laporan' }}" id="link-kembali-bawah">
           <button type="button">Kembali</button>
         </a>
       </section>
@@ -357,23 +410,23 @@
           <tbody>
             <tr>
               <th scope="row">Judul</th>
-              <td id="petugas-judul"></td>
+              <td id="petugas-judul">@isset($laporan){{ $laporan->judul }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">Kategori</th>
-              <td id="petugas-kategori"></td>
+              <td id="petugas-kategori">@isset($laporan){{ $laporan->kategori }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">Lokasi</th>
-              <td id="petugas-lokasi"></td>
+              <td id="petugas-lokasi">@isset($laporan){{ $laporan->lokasi }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">Waktu</th>
-              <td id="petugas-waktu"></td>
+              <td id="petugas-waktu">@isset($laporan){{ $laporan->created_at->diffForHumans() }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">ID Laporan</th>
-              <td id="petugas-id"></td>
+              <td id="petugas-id">@isset($laporan)#{{ $laporan->id }}@endisset</td>
             </tr>
           </tbody>
         </table>
@@ -382,10 +435,67 @@
       <!-- Proses Penanganan -->
       <section aria-labelledby="proses-heading">
         <h2 id="proses-heading">Proses Penanganan</h2>
-        <p id="proses-deskripsi"></p>
+        <p id="proses-deskripsi">
+          @isset($laporan)
+            @if ($laporan->status === 'baru')
+              Laporan ini baru diterima dan belum memiliki catatan penanganan dari petugas.
+            @else
+              Status laporan saat ini: {{ ucfirst($laporan->status) }}.
+            @endif
+          @endisset
+        </p>
 
+        @if (isset($laporan))
+          @php
+            $tahapAktif = match ($laporan->status) {
+              'diproses' => 2,
+              'selesai' => 3,
+              'ditolak' => 1,
+              default => 0,
+            };
+          @endphp
+          <ol aria-label="Tahapan proses penanganan">
+            <li class="timeline-step--complete">
+              <span class="timeline-indicator" aria-hidden="true"></span>
+              <article>
+                <h3>Laporan Diterima</h3>
+                <p>Laporan masuk dan tercatat di sistem.</p>
+                <p><time datetime="{{ $laporan->created_at->timezone('Asia/Jakarta')->toIso8601String() }}">{{ $laporan->created_at->timezone('Asia/Jakarta')->format('d M Y, H.i') }} WIB</time></p>
+              </article>
+            </li>
+            @foreach ([
+              ['Survei Lokasi', 'Petugas akan memeriksa kondisi di lokasi laporan.'],
+              [$laporan->status === 'ditolak' ? 'Laporan Ditolak' : 'Proses Penanganan', $laporan->status === 'ditolak' ? 'Laporan tidak dapat dilanjutkan.' : 'Petugas akan menindaklanjuti laporan.'],
+              ['Selesai', 'Penanganan laporan telah selesai.'],
+            ] as $index => [$judulTahap, $deskripsiTahap])
+              @php
+                $nomorTahap = $index + 1;
+                $kelasTahap = $nomorTahap < $tahapAktif
+                  ? 'timeline-step--complete'
+                  : ($nomorTahap === $tahapAktif
+                    ? ($laporan->status === 'selesai' ? 'timeline-step--complete' : 'timeline-step--current')
+                    : 'timeline-step--pending');
+              @endphp
+              <li class="{{ $kelasTahap }}">
+                <span class="timeline-indicator" aria-hidden="true"></span>
+                <article>
+                  <h3>{{ $judulTahap }}</h3>
+                  <p>{{ $deskripsiTahap }}</p>
+                  @if ($nomorTahap < $tahapAktif)
+                    <p>Selesai</p>
+                  @elseif ($nomorTahap === $tahapAktif)
+                    <p>Sedang berlangsung</p>
+                  @else
+                    <p>Menunggu</p>
+                  @endif
+                </article>
+              </li>
+            @endforeach
+          </ol>
+        @else
         <ol aria-label="Tahapan proses penanganan">
           <li>
+            <span class="timeline-indicator" aria-hidden="true"></span>
             <article>
               <h3>Laporan Diterima</h3>
               <p>Laporan masuk dan terverifikasi oleh sistem.</p>
@@ -393,6 +503,7 @@
             </article>
           </li>
           <li>
+            <span class="timeline-indicator" aria-hidden="true"></span>
             <article>
               <h3>Survei Lokasi</h3>
               <p>Petugas melakukan survei kondisi lapangan di lokasi laporan.</p>
@@ -400,6 +511,7 @@
             </article>
           </li>
           <li>
+            <span class="timeline-indicator" aria-hidden="true"></span>
             <article>
               <h3>Proses Penanganan</h3>
               <p>Tim penanganan mulai bekerja di lokasi.</p>
@@ -407,6 +519,7 @@
             </article>
           </li>
           <li>
+            <span class="timeline-indicator" aria-hidden="true"></span>
             <article>
               <h3>Selesai</h3>
               <p>Penanganan selesai dan lokasi siap digunakan kembali.</p>
@@ -414,10 +527,12 @@
             </article>
           </li>
         </ol>
+        @endif
       </section>
     </div>
   </main>
 
+  @unless (isset($laporan))
   <script>
     // ── Data laporan (sama dengan detail-laporan.html) ──
     var DATA_LAPORAN = {
@@ -529,6 +644,33 @@
 
     // ── Update title halaman ──
     document.title = 'LingkunganKU - Penanganan ' + laporan.judul;
+  </script>
+  @endunless
+
+  <script>
+    const updateTimelineLines = () => {
+      document.querySelectorAll('ol[aria-label="Tahapan proses penanganan"]').forEach((timeline) => {
+        const indicators = timeline.querySelectorAll('.timeline-indicator');
+        if (indicators.length < 2) return;
+
+        const timelineTop = timeline.getBoundingClientRect().top;
+        const first = indicators[0].getBoundingClientRect();
+        const last = indicators[indicators.length - 1].getBoundingClientRect();
+        const start = first.top + first.height / 2 - timelineTop;
+        const end = last.top + last.height / 2 - timelineTop;
+
+        timeline.style.setProperty('--timeline-top', `${start}px`);
+        timeline.style.setProperty('--timeline-height', `${Math.max(0, end - start)}px`);
+      });
+    };
+
+    updateTimelineLines();
+    window.addEventListener('resize', updateTimelineLines);
+    if ('ResizeObserver' in window) {
+      document.querySelectorAll('ol[aria-label="Tahapan proses penanganan"]').forEach((timeline) => {
+        new ResizeObserver(updateTimelineLines).observe(timeline);
+      });
+    }
   </script>
 
 </body>

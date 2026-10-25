@@ -62,13 +62,11 @@ Route::get('/cari-laporan', function () {
     return view('cari-laporan');
 })->name('cari-laporan');
 
-Route::get('/detail-laporan', function () {
-    return view('detail-laporan');
-})->name('detail-laporan');
+Route::get('/detail-laporan', [FrontendLaporanController::class, 'show'])
+    ->name('detail-laporan');
 
-Route::get('/detail-penanganan', function () {
-    return view('detail-penanganan');
-})->name('detail-penanganan');
+Route::get('/detail-penanganan', [FrontendLaporanController::class, 'showHandling'])
+    ->name('detail-penanganan');
 
 // Halaman detail pemberitahuan
 Route::get('/pemberitahuan/jadwal-sampah', function () {
