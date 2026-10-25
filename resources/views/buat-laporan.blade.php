@@ -174,7 +174,7 @@
               <label for="titik-maps">Arahkan Titik Maps</label>
               <input type="text" id="titik-maps" name="titik_maps" placeholder="Contoh: -7.6150, 111.9465">
               <button type="button" id="gunakan-lokasi-saya">Gunakan lokasi saya</button>
-              <p>Peta mengikuti pilihan lokasi. Geser penanda untuk menentukan titik yang lebih tepat; koordinat latitude, longitude akan terisi otomatis.</p>
+              <p>Peta mengikuti pilihan lokasi. Geser penanda untuk menentukan titik yang lebih tepat; koordinat latitude, longitude akan terisi otomatis. Saat tombol lokasi digunakan, koordinat dikirim ke <a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener noreferrer">Nominatim/OpenStreetMap</a> untuk mencari kecamatan dan desa. Saat memilih desa, nama desa dan kecamatan dicari sebagai titik perkiraan melalui <a href="https://photon.komoot.io/" target="_blank" rel="noopener noreferrer">Photon/OpenStreetMap</a>.</p>
             </li>
           </ol>
           <div id="peta-lokasi" role="region" aria-label="Peta lokasi laporan di Kabupaten Nganjuk"></div>
@@ -311,31 +311,32 @@
     };
 
     // ── Desa/kelurahan per kecamatan ─────────────────────────────────
+    // Sumber: https://wilayah.id/api/villages/35.18.{kode-kecamatan}.json
     var desaPerKecamatan = {
-      bagor:       ['Bagor','Bagor Kulon','Banaran','Drenges','Gemenggeng','Jekek','Jegreg','Kedungglugu','Keras Kulon','Kweden','Marmoyo','Mbayen','Ngumpul','Parakan','Sengon Wetan','Sidorejo','Sonopatik','Sugihwaras','Sumberejo','Tempel'],
-      baron:       ['Baron','Bareng','Caruban','Dadapan','Jekek','Katerban','Kemlokolegi','Kemlokorejo','Mojodowo','Muncung','Ngablak','Sambirejo','Sawo','Sumberkepuh','Surorowo','Tanjung','Tejo','Tembarak','Terung Kulon','Terung Wetan'],
-      berbek:      ['Bajulan','Berbek','Betet','Bulurejo','Gebangkerep','Genjeng','Giyanti','Kalipang','Klodan','Kureksari','Kwagean','Parang','Sambi','Sanan','Sengon Agung','Sonopatik','Sumberkepuh','Talang','Tegaron','Tritik'],
-      gondang:     ['Banaran','Bogo','Gondang','Jatirejo','Kenongo Mulyo','Kwaron','Lengkong','Mancon','Ngrajek','Ngrengket','Rejoso','Sambikerep','Sekaran','Sumengko','Sukorejo','Tempel','Waung'],
-      jatikalen:   ['Bangle','Bodor','Gedangan','Jatikalen','Jerukgulung','Kalianyar','Mruwut','Ngasem','Sendangagung','Tanjung Sekar'],
-      kertosono:   ['Banaran','Kertosono','Kutorejo','Manding','Margokaton','Pelem','Perning','Semare','Singgahan','Tanjung Anom','Tritik'],
-      lengkong:    ['Bandungrejo','Gampeng','Guyangan','Kwagean','Lengkong','Morosunggingan','Nglawak','Nglundo','Padangan','Sambirejo','Sumberkepuh','Sumberwudi'],
-      loceret:     ['Bajulan','Gampeng','Jatirejo','Kedungrejo','Loceret','Mojodadi','Ngepung','Nglongsor','Oro-Oro Ombo','Pace Kulon','Putren','Sekaran','Selopanggung','Sukorejo','Sumurup'],
-      nganjuk:     ['Begadung','Bogo','Cangkringan','Kauman','Kedondong','Kramat','Mangundikaran','Nganjuk','Payaman','Ploso','Ringinagung','Werungotok'],
-      ngetos:      ['Kuncir','Mlorah','Mojoduwur','Ngetos','Sendangbumen','Sumberejo','Sugihwaras','Watesneg'],
-      ngluyu:      ['Bendoasri','Gampeng','Kepel','Ngluyu','Ngluyuwetan','Sendangrejo','Sumberejo','Tanjung Sari'],
-      ngronggot:   ['Bungur','Gemenggeng','Jatirejo','Kecubung','Kuncir','Kutorejo','Ngronggot','Nglawak','Pakuncen','Parangrejo','Pegandon','Sidoarjo','Sukomoro','Sumberkepuh','Tanjung Anom'],
-      pace:        ['Babadan','Banaran','Bedug','Bogo','Gondang','Jegles','Jelu','Kurungrejo','Loceret','Pace','Padenganploso','Ploso Lor','Sambirejo','Sekaran','Sukomoro','Tempuran','Watudandang'],
-      patianrowo:  ['Babadan','Bakalan','Banjarmlati','Gajah','Juwet','Kebonagung','Mojodadi','Nglundo','Pehserut','Pehwetan','Sambirejo','Sebet','Sengon Wetan','Sumberejo','Watesneg'],
-      prambon:     ['Babadan','Bandung','Bendungan','Bleber','Gampeng','Jambangan','Jatigreges','Kembangsore','Krecek','Mojokendil','Ngrandu','Ngringin','Pakel','Prambon','Pulorejo','Pundong','Rorogan','Sumberejo','Sumengko','Tanjungtani','Tegaron'],
-      rejoso:      ['Bangle','Gemenggeng','Jatirejo','Katerban','Kebonagung','Klagen','Mlorah','Mojodowo','Ngepung','Nglundo','Rejoso','Sambirejo','Sebet','Sekaran','Sumberejo','Sumberwudi','Tanjung Sekar'],
-      sawahan:     ['Bendoasri','Cemorosewu','Duren','Gebang','Gilang','Kates','Kigrak','Manding','Marmoyo','Mojoduwur','Ngepeh','Ngliman','Ngraket','Sawahan','Talang'],
-      sukomoro:    ['Banaran','Balong','Banjarejo','Bendungrejo','Dadapan','Jegles','Katerban','Kebonagung','Ketawang','Kiyudan','Kraton','Mojodadi','Ngumpul','Sumberkepuh','Sukomoro','Talang'],
-      tanjunganom: ['Banaran','Babadan','Caruban','Campur','Gemenggeng','Jatirejo','Kemlokolegi','Kutorejo','Lengkong','Mojoduwur','Mojokendil','Nglundo','Ngronggot','Pakuncen','Perning','Sidoarjo','Sugihwaras','Sukorejo','Sumberejo','Tanjunganom','Tritik'],
-      wilangan:    ['Balonggebang','Gemenggeng','Jatirejo','Katerban','Krecek','Kwagean','Logawe','Nglundo','Pakuncen','Rejoso','Sambirejo','Sengon Agung','Sugihwaras','Sukomoro','Wilangan']
+      bagor:       ['Guyangan','Kedondong','Balongrejo','Girirejo','Pesudukuh','Sekarputih','Buduran','Ngumpul','Bagor Kulon','Petak','Paron','Karang Tengah','Selorejo','Gandu','Kerepkidul','Kutorejo','Sugihwaras','Gemenggeng','Kendalrejo','Banaran Kulon','Banaran Wetan'],
+      baron:       ['Sambiroto','Gebangkerep','Baron','Waung','Kemlokolegi','Kemaduh','Garu','Jekek','Katerban','Mabung','Jambi'],
+      berbek:      ['Salamrojo','Cepoko','Maguan','Semare','Berbek','Mlilir','Bendungrejo','Sengkut','Ngrawan','Sumberwindu','Kacangan','Sendangbumen','Patranrejo','Sumberurip','Bulu','Grojogan','Tiripan','Balongrejo','Sonopatik'],
+      gondang:     ['Sumberjo','Nglinggo','Mojoseto','Karangsemi','Senjayan','Kedungglugu',"Ja'an",'Sumberagung','Ketawang','Ngujung','Sanggrahan','Balonggebang','Pandean','Campur','Gondangkulon','Senggowar','Losari'],
+      jatikalen:   ['Perning','Ngasem','Gondang Wetan','Jatikalen','Begendeng','Lumpangkuwik','Dawuhan','Munung','Pulowetan','Pule','Dlururejo'],
+      kertosono:   ['Banaran','Drenges','Juwono','Bangsri','Kalianyar','Tanjung','Nglawak','Kepuh','Tembarak','Pelem','Kutorejo','Lambangkuning','Pandantoyo','Kudu'],
+      lengkong:    ['Banjardowo','Lengkong','Jegreg','Kedungmlaten','Prayungan','Sumbersono','Balongasem','Sawahan','Ngringin','Jatipunggur','Ketandan','Sumberkepuh','Ngepung','Pinggir','Bangle','Sumbermiri'],
+      loceret:     ['Tanjungrejo','Sombron','Genjeng','Karangsono','Ngepeh','Godean','Patihan','Mungkung','Sekaran','Loceret','Jatirejo','Tempel Wetan','Tekenglagahan','Gejagan','Candirejo','Sukorejo','Kwagean','Kenep','Putukrejo','Nglaban','Macanan','Bajulan'],
+      nganjuk:     ['Jatirejo','Ploso','Payaman','Kramat','Ganung Kidul','Werungotok','Mangundikaran','Kauman','Kartoharjo','Cangkringan','Bogo','Ringinanom','Begadung','Kedungdowo','Balongpacul'],
+      ngetos:      ['Kuncir','Kepel','Suru','Ngetos','Klodan','Mojoduwur','Kweden','Blongko','Oro-oro Ombo'],
+      ngluyu:      ['Sugihwaras','Ngluyu','Tempuran','Lengkong Lor','Gampeng','Bajang'],
+      ngronggot:   ['Cengkok','Tanjungkalang','Juwet','Kelutan','Ngronggot','Mojokendil','Betet','Kaloran','Banjarsari','Dadapan','Trayang','Kalianyar','Klurahan'],
+      pace:        ['Jampes','Mlandangan','Gondang','Jatigreges','Joho','Sanan','Pacekulon','Cerme','Babadan','Batembat','Banaran','Bodor','Pacewetan','Jetis','Gemenggeng','Kecubung','Plosoharjo','Kepanjen'],
+      patianrowo:  ['Bukur','Babadan','Ngepung','Pisang','Lestari','Pecuk','Patianrowo','Pakuncen','Rowomarto','Ngrombot','Tirtobinangun'],
+      prambon:     ['Gondanglegi','Singkalanyar','Mojoagung','Bandung','Nglawak','Baleturi','Tegaron','Tanjungtani','Sanggrahan','Rowoharjo','Sugihwaras','Watudandang','Sono Ageng','Kurungrejo'],
+      rejoso:      ['Gempol','Mungkung','Setren','Sukorejo','Sidokare','Mojorembun','Ngadiboyo','Rejoso','Klagen','Jatirejo','Mlorah','Puhkerep','Talun','Ngangkatan','Talang','Banjarejo','Sambikerep','Musir Lor','Musir Kidul','Wengkal','Jintel','Kedungpadang','Tritik','Bendoasri'],
+      sawahan:     ['Bendolo','Sawahan','Ngliman','Bareng','Sidorejo','Duren','Siwalan','Margopatut','Kebonagung'],
+      sukomoro:    ['Kapas','Sukomoro','Sumengko','Blitaran','Kedungsoko','Nglundo','Bungur','Pehserut','Ngrami','Bagor Wetan','Putren','Ngrengket'],
+      tanjunganom: ['Tanjunganom','Warujayeng','Kedungombo','Sumberkepuh','Wates','Malangsari','Getas','Sonobekel','Ngadirejo','Banjaranyar','Sidoharjo','Kampungbaru','Jogomerto','Kedungrejo','Sambirejo','Demangan'],
+      wilangan:    ['Sudimoroharjo','Wilangan','Ngadipiro','Mancon','Ngudikan','Sukoharjo']
     };
 
-    // lokasiKelurahan sekarang dicari dari koordinat kecamatan (fallback)
     var lokasiKelurahan = {};
+    var permintaanLokasiKelurahan = 0;
 
     function inisialisasiPetaLokasi() {
       if (petaLokasi) {
@@ -395,12 +396,90 @@
       if (kecamatan) {
         var namaLokasi = kecamatan.nama;
         if (kelurahanVal) {
-          namaLokasi = 'Desa/Kel. ' + kelurahanVal.charAt(0).toUpperCase() + kelurahanVal.slice(1) + ', ' + kecamatan.nama;
+          var opsiKelurahan = kelurahanSelect.options[kelurahanSelect.selectedIndex];
+          var namaKelurahan = opsiKelurahan ? opsiKelurahan.textContent : kelurahanVal;
+          var kunciLokasi = kecamatanVal + ':' + kelurahanVal;
+          namaLokasi = 'Desa/Kel. ' + namaKelurahan + ', ' + kecamatan.nama;
+
+          if (lokasiKelurahan[kunciLokasi]) {
+            arahkanPeta(lokasiKelurahan[kunciLokasi], 15, namaLokasi);
+            petaStatus.textContent = 'Titik perkiraan ' + namaKelurahan + ', ' + kecamatan.nama + '. Geser penanda untuk menyesuaikan titik yang tepat.';
+            return;
+          }
+
+          arahkanPeta(kecamatan.koordinat, 14, namaLokasi);
+          petaStatus.textContent = 'Mencari titik perkiraan Desa/Kel. ' + namaKelurahan + '...';
+          cariKoordinatKelurahan(kecamatanVal, kelurahanVal, namaKelurahan, kecamatan);
+          return;
         }
-        arahkanPeta(kecamatan.koordinat, kelurahanVal ? 14 : 12, namaLokasi);
+        permintaanLokasiKelurahan++;
+        arahkanPeta(kecamatan.koordinat, 12, namaLokasi);
       } else {
+        permintaanLokasiKelurahan++;
         arahkanPeta(koordinatKabupatenNganjuk, 11, 'Kabupaten Nganjuk');
       }
+    }
+
+    function cariKoordinatKelurahan(kecamatanVal, kelurahanVal, namaKelurahan, kecamatan) {
+      var idPermintaan = ++permintaanLokasiKelurahan;
+      var parameter = new URLSearchParams({
+        q: namaKelurahan,
+        lat: kecamatan.koordinat[0],
+        lon: kecamatan.koordinat[1],
+        limit: 10
+      });
+
+      fetch('https://photon.komoot.io/api/?' + parameter.toString())
+        .then(function (respons) {
+          if (!respons.ok) {
+            throw new Error('Layanan pencarian titik desa tidak merespons.');
+          }
+          return respons.json();
+        })
+        .then(function (hasil) {
+          if (idPermintaan !== permintaanLokasiKelurahan
+            || kecamatanSelect.value !== kecamatanVal
+            || kelurahanSelect.value !== kelurahanVal) {
+            return;
+          }
+
+          var lokasi = (hasil.features || []).find(function (fitur) {
+            var properti = fitur.properties || {};
+            var koordinat = fitur.geometry && fitur.geometry.coordinates;
+            var kabupaten = normalisasiNamaWilayah(properti.county || '');
+            var jarakLat = Number(koordinat && koordinat[1]) - kecamatan.koordinat[0];
+            var jarakLon = Number(koordinat && koordinat[0]) - kecamatan.koordinat[1];
+            var dekatKecamatan = Math.sqrt(jarakLat * jarakLat + jarakLon * jarakLon) <= 0.18;
+
+            return koordinat
+              && normalisasiNamaWilayah(properti.name || '') === normalisasiNamaWilayah(namaKelurahan)
+              && properti.countrycode === 'ID'
+              && kabupaten.indexOf('nganjuk') !== -1
+              && dekatKecamatan;
+          });
+
+          if (!lokasi) {
+            koordinatInput.value = '';
+            petaStatus.textContent = 'Titik Desa/Kel. ' + namaKelurahan + ' belum tersedia di peta. Penanda tetap di pusat kecamatan; geser penanda ke lokasi yang benar.';
+            return;
+          }
+
+          var koordinat = [
+            Number(lokasi.geometry.coordinates[1]),
+            Number(lokasi.geometry.coordinates[0])
+          ];
+          lokasiKelurahan[kecamatanVal + ':' + kelurahanVal] = koordinat;
+          arahkanPeta(koordinat, 15, 'Perkiraan Desa/Kel. ' + namaKelurahan + ', ' + kecamatan.nama);
+          petaStatus.textContent = 'Titik perkiraan Desa/Kel. ' + namaKelurahan + ', ' + kecamatan.nama + '. Geser penanda untuk menyesuaikan titik yang tepat.';
+        })
+        .catch(function () {
+          if (idPermintaan === permintaanLokasiKelurahan
+            && kecamatanSelect.value === kecamatanVal
+            && kelurahanSelect.value === kelurahanVal) {
+            koordinatInput.value = '';
+            petaStatus.textContent = 'Titik Desa/Kel. ' + namaKelurahan + ' tidak dapat dicari. Penanda tetap di pusat kecamatan; geser penanda ke lokasi yang benar.';
+          }
+        });
     }
 
     // ── Isi dropdown kelurahan berdasarkan kecamatan terpilih ────────
@@ -417,6 +496,121 @@
         kelurahanSelect.appendChild(opt);
       });
       kelurahanSelect.disabled = daftar.length === 0;
+    }
+
+    function normalisasiNamaWilayah(nama) {
+      return String(nama)
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/^(kecamatan|kec\.?|desa|kelurahan|kel\.?)\s+/i, '')
+        .replace(/[^a-z0-9]/g, '');
+    }
+
+    function cariKecamatanDariAlamat(alamat) {
+      var kunciAdministratif = [
+        'city_district', 'district', 'municipality', 'suburb', 'town'
+      ];
+      var nilaiAlamat = kunciAdministratif
+        .map(function (kunci) { return alamat[kunci]; })
+        .filter(Boolean);
+
+      return Array.from(kecamatanSelect.options).find(function (opsi) {
+        return opsi.value && nilaiAlamat.some(function (nilai) {
+          return normalisasiNamaWilayah(nilai) === normalisasiNamaWilayah(opsi.textContent);
+        });
+      });
+    }
+
+    function cariLokasiDesaDariAlamat(alamat, kecamatan) {
+      var kunciAdministratif = [
+        'village', 'town', 'suburb', 'hamlet', 'quarter', 'neighbourhood'
+      ];
+      var nilaiAlamat = kunciAdministratif
+        .map(function (kunci) { return alamat[kunci]; })
+        .filter(Boolean);
+
+      function cariNamaDesa(daftar) {
+        for (var i = 0; i < nilaiAlamat.length; i++) {
+          var namaDesa = daftar.find(function (nama) {
+            return normalisasiNamaWilayah(nilaiAlamat[i]) === normalisasiNamaWilayah(nama);
+          });
+          if (namaDesa) {
+            return namaDesa;
+          }
+        }
+        return null;
+      }
+
+      if (kecamatan) {
+        return {
+          kecamatan: kecamatan,
+          kelurahan: cariNamaDesa(desaPerKecamatan[kecamatan.value] || [])
+        };
+      }
+
+      var kecocokan = [];
+      Object.keys(desaPerKecamatan).forEach(function (kecamatanVal) {
+        var kelurahan = cariNamaDesa(desaPerKecamatan[kecamatanVal]);
+        if (kelurahan) {
+          var opsiKecamatan = Array.from(kecamatanSelect.options).find(function (opsi) {
+            return opsi.value === kecamatanVal;
+          });
+          if (opsiKecamatan) {
+            kecocokan.push({ kecamatan: opsiKecamatan, kelurahan: kelurahan });
+          }
+        }
+      });
+
+      return kecocokan.length === 1 ? kecocokan[0] : null;
+    }
+
+    function perbaruiDropdownDariKoordinat(koordinat) {
+      var parameter = new URLSearchParams({
+        format: 'jsonv2',
+        lat: koordinat[0],
+        lon: koordinat[1],
+        zoom: 18,
+        addressdetails: 1,
+        'accept-language': 'id'
+      });
+
+      return fetch('https://nominatim.openstreetmap.org/reverse?' + parameter.toString())
+        .then(function (respons) {
+          if (!respons.ok) {
+            throw new Error('Layanan pencarian alamat tidak merespons.');
+          }
+          return respons.json();
+        })
+        .then(function (hasil) {
+          var alamat = hasil.address || {};
+          var kecamatan = cariKecamatanDariAlamat(alamat);
+          var lokasiDesa = cariLokasiDesaDariAlamat(alamat, kecamatan);
+          if (!kecamatan && lokasiDesa) {
+            kecamatan = lokasiDesa.kecamatan;
+          }
+          kecamatanSelect.value = kecamatan ? kecamatan.value : '';
+          perbaruiDropdownKelurahan();
+
+          var kelurahan = lokasiDesa
+            ? lokasiDesa.kelurahan
+            : kecamatan
+              ? cariLokasiDesaDariAlamat(alamat, kecamatan).kelurahan
+              : null;
+          kelurahanSelect.value = kelurahan
+            ? Array.from(kelurahanSelect.options).find(function (opsi) {
+                return normalisasiNamaWilayah(opsi.textContent) === normalisasiNamaWilayah(kelurahan);
+              }).value
+            : '';
+
+          if (!kecamatan) {
+            petaStatus.textContent = 'Lokasi ditemukan, tetapi kecamatan tidak cocok dengan data Kabupaten Nganjuk. Silakan pilih lokasi secara manual.';
+          } else if (!kelurahan) {
+            petaStatus.textContent = 'Kecamatan ' + kecamatan.textContent + ' terdeteksi. Kelurahan tidak dapat dikenali otomatis; silakan pilih kelurahan secara manual.';
+          } else {
+            petaStatus.textContent = 'Lokasi terdeteksi: ' + kelurahan + ', Kecamatan ' + kecamatan.textContent + '.';
+          }
+        });
     }
 
     // ── Isi ringkasan Langkah 3 dari data form ───────────────────────
@@ -550,8 +744,16 @@
       petaStatus.textContent = 'Sedang mencari lokasi Anda... Izinkan akses lokasi pada browser jika diminta.';
       navigator.geolocation.getCurrentPosition(function (posisi) {
         var koordinat = [posisi.coords.latitude, posisi.coords.longitude];
+        kecamatanSelect.value = '';
+        perbaruiDropdownKelurahan();
         arahkanPeta(koordinat, 17, 'Lokasi Anda');
-        tombolLokasiSaya.disabled = false;
+        perbaruiDropdownDariKoordinat(koordinat)
+          .catch(function () {
+            petaStatus.textContent = 'Koordinat ditemukan, tetapi alamat tidak dapat dicari. Periksa koneksi internet atau pilih kecamatan dan kelurahan secara manual.';
+          })
+          .finally(function () {
+            tombolLokasiSaya.disabled = false;
+          });
       }, function (kesalahan) {
         if (kesalahan.code === kesalahan.PERMISSION_DENIED) {
           petaStatus.textContent = 'Izin lokasi ditolak. Izinkan akses lokasi untuk situs ini melalui pengaturan browser.';

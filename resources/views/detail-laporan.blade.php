@@ -247,6 +247,28 @@
 </head>
 <body>
 
+  @if (isset($laporan))
+    @php
+      $labelStatus = [
+        'baru' => 'Baru',
+        'diproses' => 'Diproses',
+        'selesai' => 'Selesai',
+        'ditolak' => 'Ditolak',
+      ];
+      $kelasStatus = [
+        'baru' => 'mark-menunggu',
+        'diproses' => 'mark-diproses',
+        'selesai' => 'mark-selesai',
+        'ditolak' => 'mark-ditolak',
+      ];
+      $namaPelapor = $laporan->nama_pelapor ?: ($laporan->user?->name ?? 'Warga');
+      $koordinat = 'Tidak tersedia';
+      if (preg_match('/\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)/', $laporan->lokasi, $matches)) {
+        $koordinat = $matches[1] . ', ' . $matches[2];
+      }
+    @endphp
+  @endif
+
   <header>
     <nav aria-label="Navigasi Kembali">
       <a href="/laporan" id="link-kembali">&larr; Kembali</a>
@@ -260,20 +282,30 @@
       <section aria-labelledby="foto-laporan-heading">
         <h2 id="foto-laporan-heading">Foto Laporan</h2>
         <figure>
-          <img id="foto-laporan" src="" alt="" width="360">
-          <figcaption id="foto-caption"></figcaption>
+          @if (isset($laporan))
+            @if ($laporan->foto)
+              <img id="foto-laporan" src="{{ Storage::url($laporan->foto) }}"
+                   alt="Foto laporan {{ $laporan->judul }}" width="360">
+              <figcaption id="foto-caption">Foto dokumentasi laporan.</figcaption>
+            @else
+              <p>Foto tidak disertakan pada laporan ini.</p>
+            @endif
+          @else
+            <img id="foto-laporan" src="" alt="" width="360">
+            <figcaption id="foto-caption"></figcaption>
+          @endif
         </figure>
       </section>
 
       <!-- Deskripsi Laporan -->
       <section aria-labelledby="deskripsi-heading">
         <h2 id="deskripsi-heading">Deskripsi Laporan</h2>
-        <p id="deskripsi-laporan"></p>
+        <p id="deskripsi-laporan">@isset($laporan){{ $laporan->deskripsi }}@endisset</p>
       </section>
 
       <!-- Tombol Aksi -->
       <section aria-label="Aksi Laporan">
-        <a href="/detail-penanganan" id="link-penanganan">
+        <a href="/detail-penanganan{{ isset($laporan) ? '?id=' . $laporan->id : '' }}" id="link-penanganan">
           <button type="button">Lihat Detail Penanganan</button>
         </a>
       </section>
@@ -282,10 +314,14 @@
     <div class="kolom-kanan">
       <!-- Judul dan Status -->
       <section aria-labelledby="info-utama-heading">
-        <h2 id="info-utama-heading"></h2>
-        <p><strong>Status:</strong> <mark id="status-laporan"></mark></p>
-        <p id="lokasi-laporan"></p>
-        <p id="waktu-laporan"></p>
+        <h2 id="info-utama-heading">@isset($laporan){{ $laporan->judul }}@endisset</h2>
+        <p><strong>Status:</strong>
+          <mark id="status-laporan" @isset($laporan) class="{{ $kelasStatus[$laporan->status] ?? 'mark-menunggu' }}" @endisset>
+            @isset($laporan){{ $labelStatus[$laporan->status] ?? ucfirst($laporan->status) }}@endisset
+          </mark>
+        </p>
+        <p id="lokasi-laporan">@isset($laporan)Lokasi: {{ $laporan->lokasi }}@endisset</p>
+        <p id="waktu-laporan">@isset($laporan)Waktu: {{ $laporan->created_at->diffForHumans() }}@endisset</p>
       </section>
 
       <!-- Informasi Detail -->
@@ -296,19 +332,19 @@
           <tbody>
             <tr>
               <th scope="row">Kategori</th>
-              <td id="detail-kategori"></td>
+              <td id="detail-kategori">@isset($laporan){{ $laporan->kategori }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">ID Laporan</th>
-              <td id="detail-id"></td>
+              <td id="detail-id">@isset($laporan)#{{ $laporan->id }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">Dilaporkan</th>
-              <td id="detail-dilaporkan"></td>
+              <td id="detail-dilaporkan">@isset($laporan){{ $namaPelapor }}, {{ $laporan->created_at->diffForHumans() }}@endisset</td>
             </tr>
             <tr>
               <th scope="row">Lokasi GPS</th>
-              <td id="detail-gps"></td>
+              <td id="detail-gps">@isset($laporan){{ $koordinat }}@endisset</td>
             </tr>
           </tbody>
         </table>
@@ -316,6 +352,7 @@
     </div>
   </main>
 
+  @unless (isset($laporan))
   <script>
     // ── Data semua laporan ──
     var DATA_LAPORAN = {
@@ -469,6 +506,7 @@
     // ── Update title halaman ──
     document.title = 'LingkunganKU - ' + laporan.judul;
   </script>
+  @endunless
 
 </body>
 </html>
