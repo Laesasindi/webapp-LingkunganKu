@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -341,12 +341,109 @@
       background-color: var(--color-primary-dark);
       box-shadow: 0 6px 20px rgba(37,99,235,0.45);
     }
+
+    /* ── Responsif HP/tablet ── */
+    @media (max-width: 768px) {
+      body > main {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-4);
+        gap: var(--space-4);
+      }
+
+      /* Lepas pembungkus kolom supaya urutan section bisa diatur satu aliran */
+      .kolom-kiri,
+      .kolom-kanan {
+        display: contents;
+      }
+
+      body > main section {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      /* Tombol kembali di bawah dipindah ke paling akhir */
+      section[aria-label="Navigasi Kembali"] {
+        order: 99;
+      }
+
+      /* Foto: bingkai 2:1 seperti cover */
+      section[aria-labelledby="foto-penanganan-heading"] figure img {
+        height: auto;
+        aspect-ratio: 2 / 1;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      body > main table {
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      body > main th {
+        width: 38%;
+      }
+
+      body > main th,
+      body > main td {
+        overflow-wrap: anywhere;
+      }
+
+      body > main li,
+      body > main article {
+        min-width: 0;
+      }
+    }
+  
+    /* ── Header gaya halaman Akun: ‹ Detail Penanganan, latar solid ── */
+    body > header {
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      background: #fff;
+      background-color: #fff;
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+      padding: 14px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    body > header nav {
+      margin: 0;
+    }
+
+    body > header nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--color-primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    body > header nav a h1 {
+      margin: 0;
+      font-size: 1.125rem;
+      line-height: 1.2;
+      color: inherit;
+    }
+
+    body > header nav a svg {
+      display: block;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Detail Penanganan</h1>
+    <nav aria-label="Navigasi Kembali ke Detail Laporan">
+      <a href="/detail-laporan" id="link-kembali" aria-label="Kembali ke detail laporan">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        <h1>Detail Penanganan</h1>
+      </a>
+    </nav>
   </header>
 
   <main>
@@ -538,7 +635,7 @@
     var DATA_LAPORAN = {
       'jalan-berlubang': {
         judul:      'Jalan Berlubang',
-        foto:       './assets/images/laporan-jalan-berlubang.webp',
+        foto:       './assets/images/laporan-jalan-berlubang.jpg',
         fotoAlt:    'Foto jalan berlubang',
         fotoCaption:'Kondisi jalan berlubang yang membahayakan pengguna jalan.',
         kategori:   'Infrastruktur',
@@ -551,7 +648,7 @@
       },
       'lampu-jalan-mati': {
         judul:      'Lampu Jalan Mati',
-        foto:       './assets/images/laporan-lampu-jalan-mati.webp',
+        foto:       './assets/images/laporan-lampu-jalan-mati.jpg',
         fotoAlt:    'Foto lampu jalan mati',
         fotoCaption:'Lampu jalan yang tidak menyala dan berbahaya di malam hari.',
         kategori:   'Fasilitas Umum',
@@ -564,7 +661,7 @@
       },
       'sampah-menumpuk': {
         judul:      'Sampah Menumpuk',
-        foto:       './assets/images/laporan-sampah-menumpuk.webp',
+        foto:       './assets/images/laporan-sampah-menumpuk.jpg',
         fotoAlt:    'Foto sampah menumpuk',
         fotoCaption:'Tumpukan sampah yang tidak diangkut selama beberapa hari.',
         kategori:   'Kebersihan',
@@ -577,7 +674,7 @@
       },
       'sampah-menumpuk-ditolak': {
         judul:      'Sampah Menumpuk',
-        foto:       './assets/images/laporan-sampah-menumpuk.webp',
+        foto:       './assets/images/laporan-sampah-menumpuk.jpg',
         fotoAlt:    'Foto sampah menumpuk',
         fotoCaption:'Laporan ini ditolak karena foto tidak jelas.',
         kategori:   'Kebersihan',
@@ -590,7 +687,7 @@
       },
       'selokan-tersumbat': {
         judul:      'Selokan Tersumbat',
-        foto:       './assets/images/laporan-selokan-tersumbat.webp',
+        foto:       './assets/images/laporan-selokan-tersumbat.jpg',
         fotoAlt:    'Foto selokan tersumbat',
         fotoCaption:'Selokan tersumbat yang menyebabkan genangan air.',
         kategori:   'Sanitasi',
@@ -603,7 +700,7 @@
       },
       'selokan-tersumbat-ditolak': {
         judul:      'Selokan Tersumbat',
-        foto:       './assets/images/laporan-selokan-tersumbat.webp',
+        foto:       './assets/images/laporan-selokan-tersumbat.jpg',
         fotoAlt:    'Foto selokan tersumbat',
         fotoCaption:'Laporan ditolak karena duplikasi.',
         kategori:   'Sanitasi',
@@ -673,5 +770,19 @@
     }
   </script>
 
+  <script>
+    // Tombol kembali di header: samakan tujuannya dengan tombol kembali di bawah
+    (function () {
+      var atas  = document.getElementById('link-kembali');
+      var bawah = document.getElementById('link-kembali-bawah');
+      if (!atas) { return; }
+      if (bawah && bawah.getAttribute('href')) {
+        atas.setAttribute('href', bawah.getAttribute('href'));
+      } else {
+        var id = new URLSearchParams(window.location.search).get('id');
+        atas.setAttribute('href', '/detail-laporan' + (id ? '?id=' + encodeURIComponent(id) : ''));
+      }
+    })();
+  </script>
 </body>
 </html>

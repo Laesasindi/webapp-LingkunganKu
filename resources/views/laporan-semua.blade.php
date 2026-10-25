@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css?v=6">
   <link rel="stylesheet" href="/css/laporan.css">
   <title>LingkunganKU - Laporan</title>
   <meta name="description" content="Daftar semua laporan masalah lingkungan.">
@@ -84,7 +84,7 @@
             </svg>
             <input type="search" id="cari-laporan" name="q" class="laporan-search-input"
                    value="{{ $cariAktif }}"
-                   placeholder="Cari laporan berdasarkan judul atau kata kunci...">
+                   placeholder="Cari laporan...">
           </div>
           <button type="submit" class="laporan-search-btn">Cari</button>
         </form>
@@ -120,7 +120,7 @@
               <article class="laporan-item-card">
                 <div class="laporan-item-img-wrap">
                   @if ($item->foto)
-                    <img src="{{ Storage::url($item->foto) }}"
+                    <img src="{{ $item->foto_url }}"
                          alt="Foto laporan {{ $item->judul }}"
                          class="laporan-item-img" loading="lazy"
                          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">

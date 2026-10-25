@@ -542,3 +542,88 @@
     gap: 10px;
   }
 }
+
+/* ── Halaman Laporan: sembunyikan "Lihat Semua" + cover full-bleed ── */
+body.page-laporan .laporan-lihat-semua,
+body.page-laporan #link-lihat-semua {
+  display: none !important;
+}
+
+body.page-laporan .laporan-item-card {
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+body.page-laporan .laporan-item-img-wrap {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+body.page-laporan .laporan-item-img-wrap img,
+body.page-laporan .laporan-item-img-wrap .laporan-item-img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+@media (max-width: 768px) {
+  body.page-laporan .laporan-item-card {
+    flex-direction: column;
+  }
+
+  body.page-laporan .laporan-item-img-wrap {
+    flex: none !important;
+    width: 100% !important;
+    height: 180px !important;
+    position: relative;
+  }
+}
+
+/* ── Tombol Cari di sisi kanan kolom pencarian ── */
+@media (max-width: 768px) {
+  body.page-laporan .laporan-search-form {
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 8px;
+  }
+
+  body.page-laporan .laporan-search-wrap {
+    flex: 1 1 auto;
+    width: auto !important;
+    min-width: 0;
+  }
+
+  body.page-laporan .laporan-search-btn {
+    flex: 0 0 auto;
+    width: auto !important;
+    padding: 0 22px !important;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+}
+
+/* ── Kolom cari: tanpa ikon kiri, input selebar mungkin ── */
+body.page-laporan .laporan-search-icon {
+  display: none !important;
+}
+
+body.page-laporan .laporan-search-wrap {
+  padding: 0 !important;
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+body.page-laporan .laporan-search-input {
+  width: 100% !important;
+  box-sizing: border-box;
+  padding-left: 16px !important;
+  margin: 0 !important;
+}

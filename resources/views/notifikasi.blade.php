@@ -7,7 +7,7 @@
   <meta name="description" content="Pantau perkembangan laporan dan informasi terbaru LingkunganKU.">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/notifikasi.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css?v=6">
 </head>
 <body>
 

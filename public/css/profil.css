@@ -23,7 +23,8 @@ body {
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   line-height: 1.5;
 }
-a { color: inherit; text-decoration: none; }
+
+/* ── Navbar sticky di halaman profil ── sudah dihandle navbar.css ── */a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- Layout ---------- */
@@ -134,9 +135,6 @@ input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color:
   main { grid-template-columns: 1fr; min-height: auto; }
   .sidebar { border-right: 0; border-bottom: 1px solid var(--line); }
   .baris { grid-template-columns: 1fr; }
-  .navbar { grid-template-columns: 1fr auto; }
-  .navbar nav { grid-column: 1 / -1; order: 3; overflow-x: auto; }
-  .navbar ul { justify-content: center; }
 }
 /* ---------- Menu sidebar (link ke halaman) ---------- */
 .menu-item {
@@ -577,4 +575,111 @@ input[type="search"]:focus { outline: 2px solid var(--primary); outline-offset: 
   .footer-form { padding: 10px 12px; }
   input[type="text"],
   input[type="email"] { padding: 8px 10px; font-size: .85rem; }
+}
+
+/* ================================================================
+   MOBILE NAVIGATION — tampilan panel sebagai halaman terpisah
+   ================================================================ */
+@media (max-width: 767px) {
+
+  /* Sembunyikan konten panel saat sidebar tampil */
+  body.profil-show-menu .content {
+    display: none !important;
+  }
+
+  /* Sembunyikan sidebar saat panel tampil */
+  body.profil-show-panel .sidebar {
+    display: none !important;
+  }
+
+  /* Panel: tampil penuh seperti halaman baru */
+  body.profil-show-panel .content {
+    display: block !important;
+    min-height: 100vh;
+    background: var(--bg);
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Batasi lebar konten panel di mobile */
+  body.profil-show-panel .panel {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  body.profil-show-panel .blok {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Tombol back di atas panel */
+  .profil-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #ffffff;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    width: 100%;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: left;
+    font-family: inherit;
+    height: 48px;
+    box-sizing: border-box;
+  }
+
+  .profil-back-btn svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Sembunyikan tombol back di desktop */
+  .profil-back-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .profil-back-btn {
+    display: flex;
+  }
+
+  /* Panah chevron di menu item — kanan */
+  .menu-item {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-item::after {
+    content: '›';
+    font-size: 1.4rem;
+    color: #94a3b8;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+}
+
+/* Tombol kembali hanya untuk mobile */
+@media (min-width: 768px) {
+  .profil-back-btn { display: none !important; }
+}
+
+/* MOBILE-TANPA-SOROT */
+@media (max-width: 768px) {
+  .menu-item.aktif,
+  .menu-item[aria-current] {
+    background: transparent !important;
+  }
 }

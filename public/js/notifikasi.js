@@ -1,4 +1,4 @@
-﻿var DATA = [
+var DATA = [
   { id: 1, kelompok: 'Hari ini', tipe: 'laporan', status: 'diproses', judul: 'Laporan Diproses',
     isi: 'Laporan Jalan Rusak di Jl. Diponegoro telah diterima oleh petugas.', waktu: '14:53', href: '/laporan?status=diproses' },
   { id: 2, kelompok: 'Hari ini', tipe: 'laporan', status: 'diterima', judul: 'Laporan Diterima',

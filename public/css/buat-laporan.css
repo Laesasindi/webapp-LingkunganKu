@@ -1,4 +1,4 @@
-body > header {
+body > header:not(.site-header) {
   width: 100%;
   max-width: none;
   padding-top: var(--space-2);
@@ -206,7 +206,7 @@ body.laporan-terkirim > main {
   align-items: center;
 }
 
-body.laporan-perlu-login > header {
+body.laporan-perlu-login > header:not(.site-header) {
   padding-top: var(--space-2);
   padding-bottom: var(--space-2);
 }
@@ -383,7 +383,7 @@ body.laporan-perlu-login > main {
     padding: var(--space-4);
   }
 
-  body.laporan-perlu-login > header {
+  body.laporan-perlu-login > header:not(.site-header) {
     padding-top: var(--space-2);
     padding-bottom: var(--space-2);
   }
@@ -410,37 +410,37 @@ body.laporan-perlu-login > main {
 }
 
 @media (min-width: 900px) {
-  body > header {
+  body > header:not(.site-header) {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     column-gap: var(--space-6);
   }
 
-  body > header > .brand-lingkunganku {
+  body > header:not(.site-header) > .brand-lingkunganku {
     grid-column: 1;
     grid-row: 1;
     justify-self: start;
   }
 
-  body > header nav[aria-label="Navigasi Halaman"] {
+  body > header:not(.site-header) nav[aria-label="Navigasi Halaman"] {
     grid-column: 2;
     grid-row: 1;
     min-width: max-content;
   }
 
-  body > header nav[aria-label="Navigasi Halaman"] ul {
+  body > header:not(.site-header) nav[aria-label="Navigasi Halaman"] ul {
     flex-wrap: nowrap;
   }
 
-  body > header nav[aria-label="Langkah pengisian laporan"] {
+  body > header:not(.site-header) nav[aria-label="Langkah pengisian laporan"] {
     grid-column: 3;
     grid-row: 1;
     justify-self: end;
     margin-top: 0;
   }
 
-  body > header nav[aria-label="Langkah pengisian laporan"] ol {
+  body > header:not(.site-header) nav[aria-label="Langkah pengisian laporan"] ol {
     gap: var(--space-1);
     padding: 0;
   }

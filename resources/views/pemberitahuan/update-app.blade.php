@@ -6,7 +6,7 @@
   <title>Update Aplikasi v1.5 - LingkunganKU</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css?v=6">
   <style>
     .pb-page {
       max-width: 720px;

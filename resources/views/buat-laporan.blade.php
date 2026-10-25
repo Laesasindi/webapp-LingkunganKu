@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/buat-laporan.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css?v=6">
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -174,7 +174,7 @@
               <label for="titik-maps">Arahkan Titik Maps</label>
               <input type="text" id="titik-maps" name="titik_maps" placeholder="Contoh: -7.6150, 111.9465">
               <button type="button" id="gunakan-lokasi-saya">Gunakan lokasi saya</button>
-              <p>Peta mengikuti pilihan lokasi. Geser penanda untuk menentukan titik yang lebih tepat; koordinat latitude, longitude akan terisi otomatis. Saat tombol lokasi digunakan, koordinat dikirim ke <a href="https://nominatim.openstreetmap.org/" target="_blank" rel="noopener noreferrer">Nominatim/OpenStreetMap</a> untuk mencari kecamatan dan desa. Saat memilih desa, nama desa dan kecamatan dicari sebagai titik perkiraan melalui <a href="https://photon.komoot.io/" target="_blank" rel="noopener noreferrer">Photon/OpenStreetMap</a>.</p>
+              <p>Geser penanda untuk menentukan titik lokasi. Koordinat terisi otomatis.</p>
             </li>
           </ol>
           <div id="peta-lokasi" role="region" aria-label="Peta lokasi laporan di Kabupaten Nganjuk"></div>
@@ -403,7 +403,7 @@
 
           if (lokasiKelurahan[kunciLokasi]) {
             arahkanPeta(lokasiKelurahan[kunciLokasi], 15, namaLokasi);
-            petaStatus.textContent = 'Titik perkiraan ' + namaKelurahan + ', ' + kecamatan.nama + '. Geser penanda untuk menyesuaikan titik yang tepat.';
+            petaStatus.textContent = 'Titik perkiraan ' + namaKelurahan + '. Geser penanda untuk menyesuaikan.';
             return;
           }
 
@@ -470,7 +470,7 @@
           ];
           lokasiKelurahan[kecamatanVal + ':' + kelurahanVal] = koordinat;
           arahkanPeta(koordinat, 15, 'Perkiraan Desa/Kel. ' + namaKelurahan + ', ' + kecamatan.nama);
-          petaStatus.textContent = 'Titik perkiraan Desa/Kel. ' + namaKelurahan + ', ' + kecamatan.nama + '. Geser penanda untuk menyesuaikan titik yang tepat.';
+          petaStatus.textContent = 'Titik perkiraan ' + namaKelurahan + '. Geser penanda untuk menyesuaikan.';
         })
         .catch(function () {
           if (idPermintaan === permintaanLokasiKelurahan

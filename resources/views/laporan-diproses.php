@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css?v=6">
   <link rel="stylesheet" href="/css/laporan.css">
   <title>LingkunganKU - Laporan Diproses</title>
   <meta name="description" content="Daftar laporan yang sedang dalam proses penanganan.">
@@ -63,7 +63,7 @@
           <a href="/detail-laporan?id=jalan-berlubang" class="laporan-item-link">
             <article class="laporan-item-card">
               <div class="laporan-item-img-wrap">
-                <img src="/assets/images/laporan-jalan-berlubang.webp"
+                <img src="/assets/images/laporan-jalan-berlubang.jpg"
                      alt="Foto laporan jalan berlubang" class="laporan-item-img" loading="lazy"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="laporan-item-placeholder" aria-hidden="true">
@@ -85,7 +85,7 @@
           <a href="/detail-laporan?id=sampah-menumpuk" class="laporan-item-link">
             <article class="laporan-item-card">
               <div class="laporan-item-img-wrap">
-                <img src="/assets/images/laporan-sampah-menumpuk.webp"
+                <img src="/assets/images/laporan-sampah-menumpuk.jpg"
                      alt="Foto laporan sampah menumpuk" class="laporan-item-img" loading="lazy"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="laporan-item-placeholder" aria-hidden="true">
@@ -107,7 +107,7 @@
           <a href="/detail-laporan?id=selokan-tersumbat" class="laporan-item-link">
             <article class="laporan-item-card">
               <div class="laporan-item-img-wrap">
-                <img src="/assets/images/laporan-selokan-tersumbat.webp"
+                <img src="/assets/images/laporan-selokan-tersumbat.jpg"
                      alt="Foto laporan selokan tersumbat" class="laporan-item-img" loading="lazy"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="laporan-item-placeholder" aria-hidden="true">

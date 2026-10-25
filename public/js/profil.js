@@ -1,4 +1,4 @@
-﻿var FOTO_DEFAULT = './assets/images/avatar-default.png';
+var FOTO_DEFAULT = './assets/images/avatar-default.png';
 
 // Sinkron data login ke profil
 var nama = localStorage.getItem('lingkunganku_nama');
@@ -133,33 +133,90 @@ document.getElementById('link-keluar').addEventListener('click', function (e) {
 
 // Menu sidebar: tampilkan panel sesuai pilihan
 (function () {
-  var items = document.querySelectorAll('.menu-item');
+  var items  = document.querySelectorAll('.menu-item');
   var panels = document.querySelectorAll('.panel');
+  var body   = document.body;
+  var backBtn   = document.getElementById('profil-back-btn');
+  var backLabel = document.getElementById('profil-back-label');
+
+  var isMobile = function () { return window.innerWidth <= 767; };
 
   function tampil(id) {
     if (!document.getElementById('panel-' + id)) id = 'akun';
+
+    // Tampilkan/sembunyikan panel
     panels.forEach(function (p) { p.hidden = (p.id !== 'panel-' + id); });
+
+    // Update aktif di menu
+    var namaPanel = 'Profil';
     items.forEach(function (i) {
       var aktif = i.getAttribute('data-panel') === id;
       i.classList.toggle('aktif', aktif);
-      if (aktif) i.setAttribute('aria-current', 'true');
-      else i.removeAttribute('aria-current');
+      if (aktif) {
+        i.setAttribute('aria-current', 'true');
+        namaPanel = i.querySelector('b') ? i.querySelector('b').textContent : 'Profil';
+      } else {
+        i.removeAttribute('aria-current');
+      }
     });
+
+    // Mobile: switch tampilan sidebar ↔ panel
+    if (isMobile()) {
+      body.classList.remove('profil-show-menu');
+      body.classList.add('profil-show-panel');
+      if (backLabel) backLabel.textContent = namaPanel;
+    }
   }
 
+  function kembaliKeMenu() {
+    body.classList.remove('profil-show-panel');
+    body.classList.add('profil-show-menu');
+    history.replaceState(null, '', location.pathname);
+  }
+
+  // Klik menu item
   items.forEach(function (i) {
     i.addEventListener('click', function (e) {
       e.preventDefault();
       var id = i.getAttribute('data-panel');
       history.replaceState(null, '', '#' + id);
       tampil(id);
-      if (window.innerWidth <= 760) {
-        document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
-      }
     });
   });
 
-  window.addEventListener('hashchange', function () { tampil(location.hash.slice(1)); });
+  // Tombol back
+  if (backBtn) {
+    backBtn.addEventListener('click', function () {
+      kembaliKeMenu();
+    });
+  }
+
+  // Saat resize ke desktop, reset class
+  window.addEventListener('resize', function () {
+    if (!isMobile()) {
+      body.classList.remove('profil-show-menu', 'profil-show-panel');
+    }
+  });
+
+  // Hash awal
+  var hashAwal = location.hash.slice(1);
+  if (hashAwal && document.getElementById('panel-' + hashAwal)) {
+    tampil(hashAwal);
+  } else {
+    // Mobile: mulai di tampilan menu
+    if (isMobile()) {
+      body.classList.add('profil-show-menu');
+      panels.forEach(function (p) { p.hidden = true; });
+    } else {
+      tampil('akun');
+    }
+  }
+
+  window.addEventListener('hashchange', function () {
+    var id = location.hash.slice(1);
+    if (id) tampil(id);
+    else if (isMobile()) kembaliKeMenu();
+  });
 
   // Panah di kartu profil membuka Akun
   var panah = document.querySelector('#info-profil > a');
@@ -170,8 +227,6 @@ document.getElementById('link-keluar').addEventListener('click', function (e) {
       tampil('akun');
     });
   }
-
-  tampil(location.hash.slice(1) || 'akun');
 })();
 
 // Bantuan: cari pertanyaan

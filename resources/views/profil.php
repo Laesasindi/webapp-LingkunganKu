@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
   <meta name="description" content="Halaman pengaturan profil pengguna LingkunganKU.">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/profil.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css?v=6">
   <link rel="stylesheet" href="/css/chatbot.css">
 </head>
 <body>
@@ -40,11 +40,11 @@
 
       <!-- Menu Pengaturan -->
       <nav class="menu" aria-label="Menu Pengaturan">
-        <a href="#akun" class="menu-item aktif" data-panel="akun" aria-current="true"><b>Akun</b><small>Kelola akun</small></a>
-        <a href="#bantuan" class="menu-item" data-panel="bantuan"><b>Bantuan</b><small>Pusat bantuan dan FAQ</small></a>
-        <a href="#syarat" class="menu-item" data-panel="syarat"><b>Syarat dan ketentuan</b><small>Ketentuan penggunaan aplikasi</small></a>
-        <a href="#tentang" class="menu-item" data-panel="tentang"><b>Tentang Lingkunganku</b><small>Versi aplikasi 1.0.0</small></a>
-        <a href="#privasi" class="menu-item" data-panel="privasi"><b>Privasi dan Keamanan</b><small>Ubah informasi akun</small></a>
+        <a href="#akun" class="menu-item aktif" data-panel="akun" aria-current="true"><div><b>Akun</b><small>Kelola akun</small></div></a>
+        <a href="#bantuan" class="menu-item" data-panel="bantuan"><div><b>Bantuan</b><small>Pusat bantuan dan FAQ</small></div></a>
+        <a href="#syarat" class="menu-item" data-panel="syarat"><div><b>Syarat dan ketentuan</b><small>Ketentuan penggunaan aplikasi</small></div></a>
+        <a href="#tentang" class="menu-item" data-panel="tentang"><div><b>Tentang Lingkunganku</b><small>Versi aplikasi 1.0.0</small></div></a>
+        <a href="#privasi" class="menu-item" data-panel="privasi"><div><b>Privasi dan Keamanan</b><small>Ubah informasi akun</small></div></a>
       </nav>
 
 
@@ -59,6 +59,16 @@
 
     <!-- ===== Kolom kanan: form akun ===== -->
     <section class="content">
+
+    <!-- Tombol Back (mobile only) -->
+    <button type="button" class="profil-back-btn" id="profil-back-btn" aria-label="Kembali ke menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      <span id="profil-back-label">Profil</span>
+    </button>
     <div class="panel" id="panel-akun">
       <h2 class="judul-akun" id="akun-heading">Akun</h2>
 

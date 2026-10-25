@@ -1,4 +1,4 @@
-﻿/* Data FAQ chatbot LingkunganKU. Edit file ini untuk menambah atau mengubah jawaban. */
+/* Data FAQ chatbot LingkunganKU. Edit file ini untuk menambah atau mengubah jawaban. */
 var FAQ_SAPAAN = 'Halo! Saya asisten LingkunganKU. Tanyakan cara melapor, arti status laporan, atau pengaturan akun.';
 
 var FAQ_CADANGAN = 'Maaf, saya belum menemukan jawabannya. Coba pakai kata lain, atau pilih salah satu topik di bawah.';

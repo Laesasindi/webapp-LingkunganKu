@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ asset('css/base.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
   <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/navbar.css') . '?v=4' }}">
   <title>LingkunganKU - Beranda</title>
   <meta name="description" content="Aplikasi pelaporan dan pemantauan masalah lingkungan masyarakat.">
   <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
@@ -70,7 +70,7 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-jalan-berlubang.webp') }}"
+              <img src="{{ asset('assets/images/laporan-jalan-berlubang.jpg') }}"
                    alt="Foto jalan berlubang di Palmerah"
                    class="laporan-card-img" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -109,7 +109,7 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-sampah-menumpuk.webp') }}"
+              <img src="{{ asset('assets/images/laporan-sampah-menumpuk.jpg') }}"
                    alt="Foto sampah menumpuk di Slipi"
                    class="laporan-card-img" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -148,7 +148,7 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-lampu-jalan-mati.webp') }}"
+              <img src="{{ asset('assets/images/laporan-lampu-jalan-mati.jpg') }}"
                    alt="Foto lampu jalan mati di Kebon Jeruk"
                    class="laporan-card-img" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -187,7 +187,7 @@
         <li>
           <article class="laporan-card">
             <div class="laporan-card-img-wrap">
-              <img src="{{ asset('assets/images/laporan-selokan-tersumbat.webp') }}"
+              <img src="{{ asset('assets/images/laporan-selokan-tersumbat.jpg') }}"
                    alt="Foto selokan tersumbat di Palmerah"
                    class="laporan-card-img" loading="lazy"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -254,5 +254,24 @@
   <script src="{{ asset('js/faq-data.js') }}"></script>
   <script src="{{ asset('js/chatbot.js') }}"></script>
   <script src="{{ asset('js/chatbot-drag.js') }}"></script>
+  <script>
+    // Seluruh kartu laporan bisa diklik -> detail laporan
+    (function () {
+      var kartu = document.querySelectorAll('.laporan-card');
+      for (var i = 0; i < kartu.length; i++) {
+        (function (card) {
+          var tautan = card.querySelector('a[href*="detail-laporan"]');
+          if (!tautan) { return; }
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', function (e) {
+            if (e.target.closest('a, button')) { return; }
+            var tujuan = tautan.getAttribute('href');
+            tujuan += (tujuan.indexOf('?') === -1 ? '?' : '&') + 'dari=' + encodeURIComponent(window.location.pathname);
+            window.location.href = tujuan;
+          });
+        })(kartu[i]);
+      }
+    })();
+  </script>
 </body>
 </html>

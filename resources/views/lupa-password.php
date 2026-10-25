@@ -175,7 +175,10 @@
       line-height: 0 !important;
     }
     .pw-toggle:hover { color: #1d4ed8 !important; background: transparent !important; }
-    .pw-toggle svg { width: 20px !important; height: 20px !important; display: block !important; pointer-events: none !important; }
+    .pw-toggle svg { width: 24px !important; height: 24px !important; pointer-events: none !important; }
+    .pw-toggle .icon-eye, .pw-toggle .icon-eye-off { display: none; }
+    .pw-toggle[data-visible="true"] .icon-eye { display: block !important; }
+    .pw-toggle[data-visible="false"] .icon-eye-off { display: block !important; }
 
     /* Tombol */
     .auth-btn-primary {
@@ -294,8 +297,8 @@
         <label for="pw-baru">Password Baru</label>
         <div class="pw-wrap">
           <input type="password" id="pw-baru" placeholder="Masukkan password baru">
-          <button type="button" class="pw-toggle" data-target="pw-baru" aria-label="Tampilkan password">
-            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <button type="button" class="pw-toggle" data-visible="false" data-target="pw-baru" aria-label="Tampilkan password">
+            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="12" rx="10" ry="6.5"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
             </svg>
             <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -310,8 +313,8 @@
         <label for="pw-konfirmasi">Konfirmasi Password</label>
         <div class="pw-wrap">
           <input type="password" id="pw-konfirmasi" placeholder="Ulangi password baru">
-          <button type="button" class="pw-toggle" data-target="pw-konfirmasi" aria-label="Tampilkan password">
-            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <button type="button" class="pw-toggle" data-visible="false" data-target="pw-konfirmasi" aria-label="Tampilkan password">
+            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="12" rx="10" ry="6.5"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
             </svg>
             <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -351,8 +354,7 @@
         var isHidden = input.type === 'password';
         input.type = isHidden ? 'text' : 'password';
         btn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
-        btn.querySelector('.icon-eye').style.display     = isHidden ? '' : 'none';
-        btn.querySelector('.icon-eye-off').style.display = isHidden ? 'none' : '';
+        btn.setAttribute('data-visible', isHidden ? 'false' : 'true');
       });
     });
 
