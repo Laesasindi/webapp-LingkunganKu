@@ -218,8 +218,8 @@ body > header.site-header .navbar {
     padding-left: 14px !important;
     padding-right: 14px !important;
   }
-  .site-header .brand { font-size: 1.1rem !important; }
-  .site-header .brand img { height: 38px !important; }
+  .site-header .brand { font-size: 1rem !important; }
+  .site-header .brand img { height: 30px !important; }
 }
 /* ---------- Blur halus: intensitas mengikuti jarak gulir ---------- */
 @property --nb-g {
@@ -277,11 +277,11 @@ body > header.site-header .navbar.navbar {
     display: none !important;
   }
 
-  /* Navbar atas hanya tampilkan brand logo */
+  /* Navbar atas: brand di kiri */
   body > header.site-header .navbar {
     grid-template-columns: 1fr !important;
-    justify-items: center !important;
-    padding: 8px 16px !important;
+    justify-items: start !important;   /* ← kiri, bukan tengah */
+    padding: 6px 14px !important;
   }
 
   /* Bottom nav tampil */

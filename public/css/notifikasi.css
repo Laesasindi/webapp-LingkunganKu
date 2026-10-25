@@ -104,3 +104,110 @@ a { color: inherit; text-decoration: none; }
   .notif-item { flex-wrap: wrap; }
   .waktu { order: 3; width: 100%; padding-left: 52px; }
 }
+
+/* ================================================================
+   MOBILE TAMBAHAN — perbaikan ukuran & spasi ≤ 767px
+   ================================================================ */
+@media (max-width: 767px) {
+  .notif-page {
+    padding: 14px 12px 80px;
+  }
+
+  .notif-page h1 {
+    font-size: 1.3rem;
+  }
+
+  .notif-sub {
+    font-size: .82rem;
+    margin-bottom: 14px;
+  }
+
+  .notif-card {
+    padding: 12px 14px 6px;
+    border-radius: 12px;
+  }
+
+  /* Tab filter */
+  .tabs {
+    gap: 6px;
+  }
+
+  .tab {
+    padding: 6px 14px;
+    font-size: .78rem;
+  }
+
+  /* Tools */
+  .toolbar {
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  #filter-status,
+  .cari,
+  .btn-baca {
+    height: 34px;
+    font-size: .78rem;
+    border-radius: 7px;
+  }
+
+  .cari {
+    min-width: 0;
+    padding: 0 10px;
+  }
+
+  .btn-baca {
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  /* Item notifikasi */
+  .kelompok {
+    font-size: .82rem;
+    margin: 14px 0 3px;
+  }
+
+  .notif-item {
+    padding: 10px 6px;
+    gap: 10px;
+  }
+
+  .ikon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .ikon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .isi strong {
+    font-size: .82rem;
+    gap: 6px;
+  }
+
+  .isi strong .titik {
+    width: 6px;
+    height: 6px;
+  }
+
+  .isi p {
+    font-size: .72rem;
+  }
+
+  .waktu {
+    font-size: .68rem;
+    padding-left: 42px;
+  }
+
+  .panah {
+    width: 13px;
+    height: 13px;
+  }
+
+  .kosong {
+    font-size: .85rem;
+    padding: 24px 0;
+  }
+}

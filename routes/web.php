@@ -30,6 +30,10 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
+Route::get('/lupa-password', function () {
+    return view('lupa-password');
+})->name('lupa-password');
+
 // Halaman laporan warga (dinamis dari database)
 Route::get('/laporan', [FrontendLaporanController::class, 'index'])
     ->name('laporan');

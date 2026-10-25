@@ -418,8 +418,11 @@
 /* Mobile ≤ 767px */
 @media (max-width: 767px) {
   .hero {
-    padding: 72px 16px 48px;
-    min-height: 100svh;
+    padding: 48px 16px 32px;
+    min-height: 0;              /* ← hapus min-height 100svh penyebab ruang besar */
+    height: auto;
+    align-items: flex-end;      /* konten turun ke bawah mengikuti gambar */
+    justify-content: center;
   }
 
   .hero-content {
@@ -428,50 +431,51 @@
   }
 
   .hero-label {
-    font-size: 0.78rem;
-    margin-bottom: 8px;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
   }
 
   .hero-title {
-    font-size: clamp(1.5rem, 6.5vw, 2rem);
-    margin-bottom: 10px;
+    font-size: clamp(1.4rem, 6vw, 1.85rem);
+    margin-bottom: 8px;
   }
 
   .hero-desc {
-    font-size: 0.88rem;
-    margin-bottom: 20px;
-    line-height: 1.55;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    line-height: 1.5;
   }
 
-  /* Pencarian: tetap satu baris, lebih kompak */
+  /* Pencarian: row, kompak mirip halaman Laporan */
   .hero-search {
     max-width: 100%;
     margin-bottom: 0;
   }
 
   .hero-search-wrap {
-    flex-direction: row;          /* tetap horizontal */
+    flex-direction: row;
     align-items: center;
-    padding: 5px 5px 5px 14px;
+    padding: 4px 4px 4px 12px;
     border-radius: 10px;
     gap: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   }
 
   .hero-search-input {
-    font-size: 0.85rem;
-    padding: 8px 0;
+    font-size: 0.82rem;
+    padding: 7px 0;
   }
 
   .hero-search-btn {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
     flex-shrink: 0;
   }
 
   .hero-search-btn svg {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
   }
 
   /* Kartu laporan: 1 kolom */
@@ -485,34 +489,75 @@
   }
 
   .laporan-section {
-    padding: 36px 14px 80px;
-    border-radius: 28px 28px 0 0;
-    margin-top: -28px;
+    padding: 18px 12px 80px;    /* atas lebih kecil, samping lebih rapat */
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
   }
 
   .laporan-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    margin: 0 0 2px;
   }
 
   .laporan-meta {
+    font-size: 0.78rem;
+  }
+
+  .laporan-lihat-semua {
     font-size: 0.82rem;
   }
 
   .laporan-header {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+    gap: 6px;
+  }
+
+  /* Kartu laporan beranda lebih compact */
+  .laporan-card {
+    border-radius: 12px;
+  }
+
+  .laporan-card-body {
+    padding: 12px 12px;
+    gap: 3px;
+  }
+
+  .laporan-card-title {
+    font-size: 0.88rem;
+  }
+
+  .laporan-card-lokasi,
+  .laporan-card-waktu {
+    font-size: 0.73rem;
+  }
+
+  .laporan-card-desc {
+    font-size: 0.75rem;
+  }
+
+  .laporan-card-badge {
+    padding: 3px 10px;
+    font-size: 0.68rem;
+    margin-top: 4px;
+  }
+
+  .laporan-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
 
 /* Small mobile ≤ 399px */
 @media (max-width: 399px) {
-  .hero-label   { font-size: 0.72rem; }
-  .hero-title   { font-size: clamp(1.3rem, 7.5vw, 1.7rem); }
-  .hero-desc    { font-size: 0.82rem; }
-  .hero-search-wrap { padding: 4px 4px 4px 12px; }
-  .hero-search-input { font-size: 0.8rem; }
-  .hero-search-btn { width: 34px; height: 34px; }
+  .hero         { padding: 46px 12px 28px; }
+  .hero-label   { font-size: 0.7rem; }
+  .hero-title   { font-size: clamp(1.25rem, 7vw, 1.6rem); }
+  .hero-desc    { font-size: 0.8rem; }
+  .hero-search-wrap { padding: 3px 3px 3px 10px; }
+  .hero-search-input { font-size: 0.78rem; }
+  .hero-search-btn { width: 30px; height: 30px; }
   .laporan-header { flex-direction: column; align-items: flex-start; }
-  .laporan-title  { font-size: 1.15rem; }
+  .laporan-title  { font-size: 1.05rem; }
 }
 
 

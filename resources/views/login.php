@@ -179,27 +179,35 @@
       box-sizing: border-box;
     }
 
+    /* Override style.css global button[type="button"] untuk tombol mata */
     .pw-toggle {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      padding: 0;
-      margin: 0;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #94a3b8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
+      position: absolute !important;
+      right: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 20px !important;
+      height: 20px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      outline: none !important;
+      cursor: pointer !important;
+      color: #2563eb !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 2 !important;
+      font-size: 0 !important;
+      line-height: 0 !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
     }
 
-    .pw-toggle:hover { color: #475569; }
-    .pw-toggle svg { width: 18px; height: 18px; display: block; }
+    .pw-toggle:hover { color: #475569 !important; background: transparent !important; }
+    .pw-toggle:active { transform: translateY(-50%) scale(1) !important; }
+    .pw-toggle svg { width: 20px !important; height: 20px !important; display: block !important; pointer-events: none !important; }
 
     /* ── Lupa password ── */
     .auth-forgot {
@@ -353,7 +361,7 @@
 
       /* Pastikan ikon mata tetap di kanan di mobile */
       .pw-wrap input {
-        padding-right: 2.75rem;
+        padding-right: 2.75rem !important;
       }
 
       .auth-btn-primary {
@@ -421,8 +429,17 @@
             <input type="password" id="password" name="password"
               placeholder="Kata sandi" autocomplete="current-password">
             <button type="button" class="pw-toggle" aria-label="Tampilkan password" data-target="password">
-              <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg class="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              <svg class="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                <ellipse cx="12" cy="12" rx="10" ry="6.5"/>
+                <circle cx="12" cy="12" r="3"/>
+                <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              <svg class="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="12" rx="10" ry="6.5"/>
+                <circle cx="12" cy="12" r="3"/>
+                <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+                <line x1="3" y1="3" x2="21" y2="21"/>
+              </svg>
             </button>
           </div>
           <span class="field-error" id="error-password">Field ini wajib diisi</span>
@@ -430,7 +447,7 @@
       </div>
 
       <div class="auth-forgot">
-        <a href="#">Lupa password?</a>
+        <a href="/lupa-password">Lupa password?</a>
       </div>
 
       <button type="submit" class="auth-btn-primary">Masuk</button>

@@ -452,3 +452,93 @@
 .laporan-item-link .laporan-item-badge {
   pointer-events: none;
 }
+
+/* ================================================================
+   MOBILE TAMBAHAN — perbaikan ukuran & spasi ≤ 767px
+   ================================================================ */
+@media (max-width: 767px) {
+  .laporan-page {
+    padding: 16px 12px 80px;
+  }
+
+  /* Header */
+  .laporan-page-header {
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .laporan-page-header-text h1 {
+    font-size: 1.25rem;
+  }
+
+  .laporan-page-header-text p {
+    font-size: .82rem;
+  }
+
+  .laporan-btn-buat {
+    padding: 8px 14px;
+    font-size: .82rem;
+    border-radius: 8px;
+  }
+
+  /* Filter tabs */
+  .laporan-filter-tabs a {
+    padding: 5px 14px;
+    font-size: .8rem;
+  }
+
+  /* Search */
+  .laporan-controls {
+    padding: 12px 14px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .laporan-search-input {
+    font-size: .85rem;
+    padding: 8px 0;
+  }
+
+  .laporan-search-btn {
+    padding: 9px 16px;
+    font-size: .82rem;
+    border-radius: 7px;
+  }
+
+  /* Kartu laporan */
+  .laporan-item-card {
+    border-radius: 12px;
+  }
+
+  .laporan-item-img-wrap {
+    height: 150px;
+  }
+
+  .laporan-item-body {
+    padding: 10px 14px;
+    gap: 3px;
+  }
+
+  .laporan-item-title {
+    font-size: .9rem;
+  }
+
+  .laporan-item-kategori,
+  .laporan-item-lokasi {
+    font-size: .75rem;
+  }
+
+  .laporan-item-meta {
+    font-size: .72rem;
+  }
+
+  .laporan-item-badge {
+    padding: 3px 10px;
+    font-size: .68rem;
+    margin-top: 2px;
+  }
+
+  .laporan-list {
+    gap: 10px;
+  }
+}

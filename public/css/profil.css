@@ -360,3 +360,221 @@ input[type="search"]:focus { outline: 2px solid var(--primary); outline-offset: 
 #foto-sidebar, #foto-preview { object-fit: cover; aspect-ratio: 1 / 1; }
 #foto-sidebar { width: 52px; height: 52px; }
 #foto-preview { width: 92px; height: 92px; }
+
+/* ================================================================
+   MOBILE RESPONSIVE — ≤ 767px
+   ================================================================ */
+@media (max-width: 767px) {
+  /* Layout utama */
+  main {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  /* Sidebar info profil lebih compact */
+  #info-profil {
+    padding: 12px 16px;
+  }
+
+  #info-profil h2 {
+    font-size: .78rem;
+    margin-bottom: 8px;
+  }
+
+  #foto-sidebar {
+    width: 40px;
+    height: 40px;
+  }
+
+  #profil-nama {
+    font-size: .88rem;
+  }
+
+  #profil-kontak {
+    font-size: .75rem;
+  }
+
+  /* Menu sidebar lebih compact */
+  .menu {
+    padding: 8px 12px;
+  }
+
+  .menu-item {
+    padding: 8px 10px;
+    margin-bottom: 1px;
+  }
+
+  .menu-item b {
+    font-size: .88rem;
+  }
+
+  .menu-item small {
+    font-size: .75rem;
+  }
+
+  /* Tombol keluar */
+  .keluar {
+    padding: 10px 16px;
+  }
+
+  #link-keluar {
+    padding: 5px 12px;
+    font-size: .82rem;
+  }
+
+  .keluar p {
+    font-size: .75rem;
+    margin-top: 6px;
+  }
+
+  /* Judul panel */
+  .judul-akun {
+    padding: 12px 16px;
+    font-size: 1.2rem;
+  }
+
+  /* Blok form */
+  .blok {
+    padding: 14px 16px;
+  }
+
+  /* Foto profil */
+  .foto {
+    gap: 12px;
+  }
+
+  #foto-preview {
+    width: 72px;
+    height: 72px;
+  }
+
+  .foto h3 {
+    font-size: .9rem;
+    margin-bottom: 8px;
+  }
+
+  .foto .aksi {
+    gap: 6px;
+  }
+
+  .foto small {
+    font-size: .75rem;
+    margin-top: 6px;
+  }
+
+  /* Grid baris form */
+  .baris {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  /* Input */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"] {
+    padding: 9px 12px;
+    font-size: .88rem;
+    border-radius: 8px;
+  }
+
+  label {
+    font-size: .82rem;
+    margin-bottom: 5px;
+  }
+
+  /* Email dengan tombol */
+  .email-wrap {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .email-wrap input {
+    width: 100%;
+  }
+
+  .hint {
+    font-size: .78rem;
+  }
+
+  /* Tombol umum */
+  .btn {
+    padding: 7px 14px;
+    font-size: .82rem;
+    border-radius: 8px;
+  }
+
+  /* Bagian kata sandi */
+  .sandi {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .sandi h3 {
+    font-size: .95rem;
+  }
+
+  .sandi p {
+    font-size: .78rem;
+  }
+
+  /* Footer form */
+  .footer-form {
+    padding: 12px 16px;
+    gap: 6px;
+  }
+
+  #status {
+    font-size: .82rem;
+  }
+
+  /* Panel padding */
+  .panel .blok:first-of-type {
+    padding-top: 12px;
+  }
+
+  /* Info tentang */
+  .tentang-kepala img {
+    height: 40px;
+  }
+
+  .tentang-kepala h3 {
+    font-size: 1.05rem;
+  }
+
+  .info div {
+    padding: 9px 12px;
+    font-size: .82rem;
+  }
+
+  /* Tabel status */
+  .tabel-status td {
+    padding: 9px 12px;
+    font-size: .82rem;
+  }
+
+  /* Sub judul */
+  .sub-judul {
+    font-size: .95rem;
+  }
+
+  /* FAQ */
+  .faq summary {
+    font-size: .85rem;
+    padding: 8px 0;
+  }
+
+  .faq details p {
+    font-size: .83rem;
+  }
+}
+
+/* ≤ 399px (very small screens) */
+@media (max-width: 399px) {
+  .judul-akun { font-size: 1.05rem; }
+  .blok { padding: 12px 12px; }
+  .footer-form { padding: 10px 12px; }
+  input[type="text"],
+  input[type="email"] { padding: 8px 10px; font-size: .85rem; }
+}
